@@ -20,6 +20,8 @@ RM		= rm -rf
 
 MLX_LNK	= -L ${MLX} -l mlx -framework OpenGL -framework AppKit
 
+LIB_LNK	= -L ${LIBFT} -lft
+
 INCLUDES = -I${LIBFT}inc -I${MLX} -I ./inc
 
 all: ${NAME}
@@ -28,7 +30,9 @@ all: ${NAME}
 	${CC} ${CFLAGS} -c ${INCLUDES} $< -o ${<:.c=.o}
 
 $(NAME): ${OBJS}
-	${CC} ${CFLAGS} ${MLX_LNK} ${OBJS} -o ${NAME}
+	make -C ${LIBFT}
+	make -C ${MLX}
+	${CC} ${CFLAGS} ${LIB_LNK} ${MLX_LNK} ${OBJS} -o ${NAME}
 
 clean:
 		@${RM} ${OBJS} *.dSYM
