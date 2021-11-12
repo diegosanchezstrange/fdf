@@ -1,4 +1,4 @@
-NAME	= pipex
+NAME	= fdf
 
 CC		= gcc
 
@@ -12,22 +12,23 @@ MLX_NAME_MAC = libmlx.a
 MLX_NAME_LINUX = libmlx_Linux.a
 
 LIBFT	= lib/libft/
+MLX	= lib/minilibx_macos/
 
 OBJS	= ${SRCS:.c=.o}
 
 RM		= rm -rf
 
-MLX		= lib/${MLX_DIR}/
+MLX_LNK	= -L ${MLX} -l mlx -framework OpenGL -framework AppKit
+
+INCLUDES = -I${LIBFT}inc -I${MLX} -I ./inc
 
 all: ${NAME}
 
 .c.o:
-	${CC} ${CFLAGS} -c -I${LIBFT}inc $< -o ${<:.c=.o}
+	${CC} ${CFLAGS} -c ${INCLUDES} $< -o ${<:.c=.o}
 
 $(NAME): ${OBJS}
-	${CC} ${CFLAGS} ${INCLUDE} ${OBJS} -o ${NAME}
-
-$()
+	${CC} ${CFLAGS} ${MLX_LNK} ${OBJS} -o ${NAME}
 
 clean:
 		@${RM} ${OBJS} *.dSYM
