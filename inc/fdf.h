@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 17:53:51 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/12 18:13:08 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/18 21:07:49 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,33 @@ typedef struct	s_data {
 	int		line_length;
 	int		endian;
 }				t_data;
+
+typedef struct	s_point {
+	int	x;
+	int	y;
+	int	z;
+}				t_point;
+
+typedef struct	s_fdf {
+	void	*mlx;
+	void	*win;
+	t_point	**points;
+	t_data	data;
+	int		W_WIDTH;
+	int		W_HEIGHT;
+	int		w;
+	int		h;
+}				t_fdf;
+
+// free.c
+void	ft_free_all(char **split, t_list **list, char *line);
+void	ft_free_split(char **s);
+
+int	ft_hooks(int keycode, t_fdf *vars);
+void	ft_plot_line(t_data data, t_point p1, t_point p2);
+
+// parse.c
+void	ft_fill_list(int fd, t_point ***list, t_fdf *fdf);
 
 
 #endif

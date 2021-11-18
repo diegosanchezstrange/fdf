@@ -6,14 +6,14 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 18:44:12 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/12 19:04:28 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/18 20:10:56 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <mlx.h>
 
-int	ft_hooks(int keycode, t_vars *vars)
+int	ft_hooks(int keycode, t_fdf *vars)
 {
 	if (keycode == 53)
 	{

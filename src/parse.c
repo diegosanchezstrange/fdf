@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 17:56:11 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/18 19:23:55 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/18 21:05:14 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,19 +99,18 @@ t_point	*ft_new_line(char **nbrs, int y)
 	return (res);
 }
 
-void	ft_fill_list(int fd, t_point ***list)
+void	ft_fill_list(int fd, t_point ***list, t_fdf *fdf)
 {
 	char	*line;
 	char	**nbrs;
-	int		size;
 	int		y;
 
 	y = 0;
 	line = get_next_line(fd);
 	nbrs = ft_split(line, ' ');
-	size = ft_matrix_size(nbrs);
-	*list = (t_point **)malloc((size + 1) * sizeof(t_point *));
-	if (!list || !size)
+	fdf->w = ft_matrix_size(nbrs);
+	*list = (t_point **)malloc((fdf->w + 1) * sizeof(t_point *));
+	if (!list || !fdf->w)
 		return ;
 	while (line)
 	{
@@ -122,5 +121,6 @@ void	ft_fill_list(int fd, t_point ***list)
 		line = get_next_line(fd);
 		nbrs = ft_split(line, ' ');
 	}
+	fdf->h = y;
 	(*list)[y] = NULL;
 }
