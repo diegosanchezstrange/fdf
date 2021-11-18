@@ -4,7 +4,7 @@ CC		= gcc
 
 CFLAGS	= -Wall -Werror -Wextra -D BUFFER_SIZE=32 -g3 -fsanitize=address
 
-SRCS	= fdf.c
+SRCS	= fdf.c hooks.c line.c parse.c frees.c
 
 OBJS	= ${SRCS:.c=.o}
 
