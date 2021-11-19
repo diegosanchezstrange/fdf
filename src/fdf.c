@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:51:32 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/18 22:35:30 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/19 18:11:41 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,7 @@ void ft_center (t_point ***points, int r, int c)
 	int	j;
 
 	ft_iso(points, r, c);
-	//printf("(%d, %d)\n", r, c);
-	//printf("%d\n", (*points)[9][18].x);
+	printf("%d, %d\n", r , c);
 	xoffset = abs((*points)[0][0].x - (*points)[r - 1][c - 1].x);
 	xoffset = (1920 - xoffset)/2;
 	yoffset = abs((*points)[0][c - 1].y - (*points)[r - 1][c - 1].y);
@@ -90,6 +89,8 @@ void	ft_print_matrix(t_fdf *fdf, t_data img)
 
 	i = 0;
 	j = 0;
+	//printf("%d, %d\n", fdf->h , fdf->w);
+	//printf("(%d, %d)\n", fdf->points[0][0].x, fdf->points[0][0].y);
 	ft_center(&(fdf->points), fdf->h, fdf->w);
 	while (i < fdf->h)
 	{
@@ -110,7 +111,6 @@ void	ft_print_matrix(t_fdf *fdf, t_data img)
 		j = 0;
 		i++;
 	}
-	//ft_plot_line(img, fdf->points[0][0], fdf->points[9][18]);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, img.img, 0, 0);
 	mlx_loop(fdf->mlx);
 }
@@ -119,19 +119,17 @@ int	main(void)
 {
 	t_data	img;
 	t_fdf	fdf;
-	//t_point	**points;
 	int		fd;
 
 	fdf.points = NULL;
-	fd = open("test_maps/pyra.fdf", O_RDONLY);
+	fd = open("test_maps/elem-col.fdf", O_RDONLY);
 	ft_fill_list(fd, &(fdf.points), &fdf);
 	fdf.mlx = mlx_init();
-	fdf.win = mlx_new_window(fdf.mlx, 1920, 1080, "Hello world!");
+	fdf.win = mlx_new_window(fdf.mlx, 1920, 1080, "fdf");
 	img.img = mlx_new_image(fdf.mlx, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
 	mlx_hook(fdf.win, 2, 1L<<0, ft_hooks, &fdf);
-	//ft_plot_line(img, fdf.points[0][0], fdf.points[9][18]);
 	ft_print_matrix(&fdf, img);
 	//mlx_put_image_to_window(fdf.mlx, fdf.win, img.img, 0, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 19:24:33 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/18 22:29:52 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/19 20:40:23 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ int	ft_abs(int x)
 	return (x);
 }
 
+
+
 void	ft_plot_line(t_data img, t_point p1, t_point p2)
 {
 	int	s[2];
@@ -51,10 +53,12 @@ void	ft_plot_line(t_data img, t_point p1, t_point p2)
 	err[0] = d[0] + d[1];
 	while (p1.x != p2.x || p1.y != p2.y)
 	{
-		if (p1.z != 0 || p2.z != 0)
-			my_mlx_pixel_put(&img, p1.x, p1.y, 0x00FFFFFF);
+		if (p1.color == 0x00FF0000)
+			my_mlx_pixel_put(&img, p1.x, p1.y, p1.color);
+		else if (p2.color == 0x00FF0000)
+			my_mlx_pixel_put(&img, p1.x, p1.y, p2.color);
 		else
-			my_mlx_pixel_put(&img, p1.x, p1.y, 0x00FF0000);
+			my_mlx_pixel_put(&img, p1.x, p1.y, p1.color);
 		err[1] = 2 * err[0];
 		if (err[1] >= d[1])
 		{

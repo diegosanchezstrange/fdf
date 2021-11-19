@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 17:53:51 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/18 21:07:49 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/19 18:00:35 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_point {
 	int	x;
 	int	y;
 	int	z;
+	int	color;
 }				t_point;
 
 typedef struct	s_fdf {
@@ -48,6 +49,7 @@ void	ft_plot_line(t_data data, t_point p1, t_point p2);
 
 // parse.c
 void	ft_fill_list(int fd, t_point ***list, t_fdf *fdf);
+int		ft_atoi_hex(char *nbr);
 
 
 #endif

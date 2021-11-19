@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 17:56:11 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/18 21:05:14 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/19 18:00:16 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ t_point	*ft_new_line(char **nbrs, int y)
 {	
 	int		i;
 	int		size;
+	char	**colorsplit;
 	t_point	*res;
 
 	i = 0;
@@ -91,9 +92,14 @@ t_point	*ft_new_line(char **nbrs, int y)
 	res = (t_point *)malloc(sizeof(t_point) * (size));
 	while (nbrs[i])
 	{
+		colorsplit = ft_split(nbrs[i], ',');
 		res[i].x = i;
 		res[i].y = y;
-		res[i].z = ft_atoi(nbrs[i]);
+		res[i].z = ft_atoi(colorsplit[0]);
+		if (colorsplit[1])
+			res[i].color = ft_atoi_hex(colorsplit[1]);
+		else
+			res[i].color = 0x00FFFFFF;
 		i++;
 	}
 	return (res);
