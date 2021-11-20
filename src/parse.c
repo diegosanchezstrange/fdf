@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 17:56:11 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/20 21:35:03 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/20 21:39:37 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ t_point	*ft_new_line(char **nbrs, int y)
 		if (colorsplit[1])
 			res[i].color = ft_atoi_hex(ft_strtrim(colorsplit[1], "\n"));
 		else
-			res[i].color = 0x00FFFFFF;
+			res[i].color = 0xFFFFFF;
 		i++;
 	}
 	return (res);

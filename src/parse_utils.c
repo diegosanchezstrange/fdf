@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:54:27 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/20 19:30:37 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/20 21:44:07 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_atoi_hex(char *nbr)
 		if (ft_isdigit(nbr[i]))
 			sol += (nbr[i] - 48) * pow(16, len - 1 - i);
 		else
-			sol += (nbr[i] - 55) * pow(16, len - 1 - i);
+			sol += (ft_toupper(nbr[i]) - 55) * pow(16, len - 1 - i);
 		i--;
 	}
 	return (sol);

@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 19:24:33 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/20 21:31:14 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/20 21:43:10 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,10 @@ void	ft_plot_line(t_data img, t_point p1, t_point p2)
 	d[1] = abs(p2.y - p1.y) * -1;
 	err[0] = d[0] + d[1];
 	p0 = p1;
+	/*printf("--------------------------\n");
+	printf("p1: (%d, %d, %d, %x)\n", p1.x, p1.y, p1.z, p1.color);
+	printf("p2: (%d, %d, %d, %x)\n", p2.x, p2.y, p2.z, p2.color);
+	printf("--------------------------\n");*/
 	while (p1.x != p2.x || p1.y != p2.y)
 	{
 		my_mlx_pixel_put(&img, p1.x, p1.y, get_color(p1, p0, p2));

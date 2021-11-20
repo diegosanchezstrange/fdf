@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:51:32 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/20 21:37:43 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/20 21:40:19 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ int	main(void)
 	int		fd;
 
 	fdf.points = NULL;
-	fd = open("test_maps/elem-col2.fdf", O_RDONLY);
+	fd = open("test_maps/t2.fdf", O_RDONLY);
 	ft_fill_list(fd, &(fdf.points), &fdf);
 	fdf.mlx = mlx_init();
 	fdf.win = mlx_new_window(fdf.mlx, 1920, 1080, "fdf");
