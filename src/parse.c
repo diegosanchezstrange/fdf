@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 17:56:11 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/19 18:00:16 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/20 21:35:03 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,7 @@ int	ft_matrix_size(char **nbrs)
 
 	size = 0;
 	while (nbrs[size])
-	{
-		if (!ft_aredigits(nbrs[size]) || !ft_atoi_check(nbrs[size]))
-			return (0);
 		size++;
-	}
 	return (size);
 }
 
@@ -97,7 +93,7 @@ t_point	*ft_new_line(char **nbrs, int y)
 		res[i].y = y;
 		res[i].z = ft_atoi(colorsplit[0]);
 		if (colorsplit[1])
-			res[i].color = ft_atoi_hex(colorsplit[1]);
+			res[i].color = ft_atoi_hex(ft_strtrim(colorsplit[1], "\n"));
 		else
 			res[i].color = 0x00FFFFFF;
 		i++;
@@ -115,7 +111,7 @@ void	ft_fill_list(int fd, t_point ***list, t_fdf *fdf)
 	line = get_next_line(fd);
 	nbrs = ft_split(line, ' ');
 	fdf->w = ft_matrix_size(nbrs);
-	*list = (t_point **)malloc((fdf->w + 1) * sizeof(t_point *));
+	*list = (t_point **)malloc((fdf->w + 1 ) * sizeof(t_point *));
 	if (!list || !fdf->w)
 		return ;
 	while (line)

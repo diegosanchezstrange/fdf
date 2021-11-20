@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:51:32 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/19 18:11:41 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/20 21:37:43 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void ft_center (t_point ***points, int r, int c)
 	int	j;
 
 	ft_iso(points, r, c);
-	printf("%d, %d\n", r , c);
+	//printf("%d, %d\n", r , c);
 	xoffset = abs((*points)[0][0].x - (*points)[r - 1][c - 1].x);
 	xoffset = (1920 - xoffset)/2;
 	yoffset = abs((*points)[0][c - 1].y - (*points)[r - 1][c - 1].y);
@@ -122,7 +122,7 @@ int	main(void)
 	int		fd;
 
 	fdf.points = NULL;
-	fd = open("test_maps/elem-col.fdf", O_RDONLY);
+	fd = open("test_maps/elem-col2.fdf", O_RDONLY);
 	ft_fill_list(fd, &(fdf.points), &fdf);
 	fdf.mlx = mlx_init();
 	fdf.win = mlx_new_window(fdf.mlx, 1920, 1080, "fdf");
