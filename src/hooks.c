@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 18:44:12 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/21 18:26:38 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/21 18:49:58 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,21 @@ void	ft_reset_points(t_fdf *fdf)
 		i++;
 	}
 }
+void	ft_move_off(int keycode, t_fdf *vars)
+{
+
+	vars->x_move = 0;
+	vars->y_move = 0;
+	if (keycode == 126)
+		vars->y_move = -Y_OFFSET;
+	else if (keycode == 125)
+		vars->y_move = Y_OFFSET;
+	else if (keycode == 124)
+		vars->x_move = X_OFFSET;
+	else if (keycode == 123)
+		vars->x_move = -X_OFFSET;
+	ft_print_matrix(vars);
+}
 
 int	ft_hooks(int keycode, t_fdf *vars)
 {
@@ -48,11 +63,8 @@ int	ft_hooks(int keycode, t_fdf *vars)
 		exit(0);
 		return (1);
 	}
-	else if (keycode == 126)
-	{
-		vars->y_move -= Y_OFFSET;
-		ft_print_matrix(vars);
-	}
+	else if (keycode >= 123 && keycode <= 126)
+		ft_move_off(keycode, vars);
 	else if (keycode == 15)
 	{
 		ft_reset_points(vars);

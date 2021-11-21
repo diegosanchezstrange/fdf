@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 17:53:51 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/21 18:06:35 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/21 18:43:22 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ typedef struct	s_fdf {
 # define SCREEN_HEIGHT 1080
 
 # define X_OFFSET 20
-# define Y_OFFSET 10
+# define Y_OFFSET 20
 
 // free.c
 void	ft_free_all(char **split, t_list **list, char *line);
