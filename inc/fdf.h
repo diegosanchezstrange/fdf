@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 17:53:51 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/19 18:00:35 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/21 18:06:35 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,28 @@ typedef struct	s_fdf {
 	void	*mlx;
 	void	*win;
 	t_point	**points;
-	t_data	data;
-	int		W_WIDTH;
-	int		W_HEIGHT;
+	t_data	img;
 	int		w;
 	int		h;
+	int		x_move;
+	int		y_move;
+	int		iso;
+	int		scale;
 }				t_fdf;
+
+# define SCREEN_WIDTH 1920
+# define SCREEN_HEIGHT 1080
+
+# define X_OFFSET 20
+# define Y_OFFSET 10
 
 // free.c
 void	ft_free_all(char **split, t_list **list, char *line);
 void	ft_free_split(char **s);
 
-int	ft_hooks(int keycode, t_fdf *vars);
 void	ft_plot_line(t_data data, t_point p1, t_point p2);
+void	ft_print_matrix(t_fdf *fdf);
+int		ft_hooks(int keycode, t_fdf *vars);
 
 // parse.c
 void	ft_fill_list(int fd, t_point ***list, t_fdf *fdf);
