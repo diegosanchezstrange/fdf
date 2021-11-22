@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:51:32 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/21 18:34:30 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/22 19:59:20 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_scale(t_fdf *fdf, int r, int c)
 		j = 0;
 		i++;
 	}
+	fdf->scale = 0;
 }
 
 void	ft_set_offset(t_fdf *fdf, int *xoffset, int *yoffset)
@@ -64,7 +65,16 @@ void	ft_set_offset(t_fdf *fdf, int *xoffset, int *yoffset)
 		*xoffset = (1920 - *xoffset)/2;
 		*yoffset = abs((points)[0][c - 1].y - (points)[r - 1][c - 1].y);
 		*yoffset = (1080 - *yoffset)/2;
-	}else
+		fdf->iso = 0;
+	}else if (fdf->par)
+	{
+		*xoffset = abs((points)[0][0].x - (points)[0][c - 1].x);
+		*xoffset = (1920 - *xoffset)/2;
+		*yoffset = abs((points)[r - 1][0].y - (points)[r - 1][c - 1].y);
+		*yoffset = (1080 - *yoffset)/2;
+		fdf->par = 0;
+	}
+	else
 	{
 		*xoffset = fdf->x_move;
 		*yoffset = fdf->y_move;
@@ -97,7 +107,6 @@ void	ft_iso(t_point ***points, int r, int c)
 	}
 }
 
-
 void ft_center (t_fdf *fdf)
 {
 	int	xoffset;
@@ -105,15 +114,11 @@ void ft_center (t_fdf *fdf)
 	int	i;
 	int	j;
 
-	//printf("scale : %d\n", fdf->scale);
 	if (fdf->scale)
 		ft_scale(fdf, fdf->h, fdf->w);
-	//printf("(%d, %d)\n", fdf->points[0][1].x, fdf->points[0][1].y);
 	if (fdf->iso)
 		ft_iso(&(fdf->points), fdf->h, fdf->w);
 	ft_set_offset(fdf, &xoffset, &yoffset);
-	fdf->iso = 0;
-	fdf->scale = 0;
 	i = 0;
 	j = 0;
 	while (i < fdf->h)
@@ -171,6 +176,8 @@ int	main(int argc, char **argv)
 	fdf.x_move = 0;
 	fdf.y_move = 0;
 	fdf.iso = 1;
+	fdf.par = 0;
+	fdf.proyec = 1;
 	fdf.scale = 1;
 	ft_fill_list(fd, &(fdf.points), &fdf);
 	fdf.mlx = mlx_init();

@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 17:53:51 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/21 18:43:22 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/22 19:47:50 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ typedef struct	s_fdf {
 	int		x_move;
 	int		y_move;
 	int		iso;
+	int		par;
+	int		proyec;
 	int		scale;
 }				t_fdf;
 

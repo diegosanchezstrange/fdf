@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 18:44:12 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/21 18:49:58 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/22 20:04:10 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ void	ft_reset_points(t_fdf *fdf)
 	fdf->x_move = 0;
 	fdf->y_move = 0;
 	fdf->scale = 1;
-	fdf->iso = 1;
+	if (fdf->proyec == 1)
+		fdf->iso = 1;
+	if (fdf->proyec == 2)
+		fdf->par = 1;
 	i = 0;
 	j = 0;
 	while (i < fdf->h)
@@ -67,6 +70,21 @@ int	ft_hooks(int keycode, t_fdf *vars)
 		ft_move_off(keycode, vars);
 	else if (keycode == 15)
 	{
+		ft_reset_points(vars);
+		ft_print_matrix(vars);
+	}
+	else if (keycode == 35)
+	{
+		if (vars->proyec == 1)
+		{
+			vars->proyec = 2;
+			vars->par = 1;
+		}
+		else if (vars->proyec == 2)
+		{
+			vars->proyec = 1;
+			vars->iso = 1;
+		}
 		ft_reset_points(vars);
 		ft_print_matrix(vars);
 	}
