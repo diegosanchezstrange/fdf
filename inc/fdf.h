@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 17:53:51 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/22 19:47:50 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/23 19:13:16 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ typedef struct	s_fdf {
 	int		par;
 	int		proyec;
 	int		scale;
+	int		zoom;
+	float		z;
 }				t_fdf;
 
 # define SCREEN_WIDTH 1920

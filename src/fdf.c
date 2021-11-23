@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:51:32 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/22 19:59:20 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/23 21:08:47 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,37 +16,51 @@
 #include <fcntl.h>
 #include <stdio.h>
 
-int	ft_get_scale(int r, int c)
+float	ft_get_scale(t_fdf *fdf, int r, int c)
 {
-	int	xsize;
-	int	ysize;
+	float	xsize;
+	float	ysize;
+	float	z;
 
-	xsize = (1920 * 0.4) / (c - 1);
-	ysize = (1080 * 0.5) / (r - 1);
+	z = 0;
+	if (fdf->zoom)
+	{
+		fdf->zoom = 0;
+		z = .5;
+	}
+	if (fdf->z == 0)
+	{
+		xsize = (1920 * 0.4) / (c - 1);
+		ysize = (1080 * 0.5) / (r - 1);
+	}
+	else
+		return (fdf->z + z);
 	if (xsize <= ysize)
-		return (xsize);
-	return (ysize);
+		return (floor(xsize + z));
+	return (floor(ysize + z));
 }
 void	ft_scale(t_fdf *fdf, int r, int c)
 {
-	int	size;
 	int	i;
 	int	j;
 
-	size = ft_get_scale(r, c);
+	fdf->z = ft_get_scale(fdf, r, c);
+	printf("size : %f\n", fdf->z);
 	i = 0;
 	j = 0;
 	while (i < r)
 	{
 		while (j < c)
 		{
-			fdf->points[i][j].x *= size;
-			fdf->points[i][j].y *= size;
+			fdf->points[i][j].x *= fdf->z;
+			fdf->points[i][j].y *= fdf->z;
 			j++;
 		}
 		j = 0;
 		i++;
 	}
+	//printf("(%d, %d) - ", fdf->points[0][1].x, fdf->points[0][1].y);
+	//printf("(%d, %d)\n", fdf->points[0][2].x, fdf->points[0][2].y);
 	fdf->scale = 0;
 }
 
@@ -59,19 +73,13 @@ void	ft_set_offset(t_fdf *fdf, int *xoffset, int *yoffset)
 	r = fdf->h;
 	c = fdf->w;
 	points = fdf->points;
-	if (fdf->iso)
+	if (fdf->iso || fdf->par)
 	{
 		*xoffset = abs((points)[0][0].x - (points)[r - 1][c - 1].x);
 		*xoffset = (1920 - *xoffset)/2;
 		*yoffset = abs((points)[0][c - 1].y - (points)[r - 1][c - 1].y);
 		*yoffset = (1080 - *yoffset)/2;
 		fdf->iso = 0;
-	}else if (fdf->par)
-	{
-		*xoffset = abs((points)[0][0].x - (points)[0][c - 1].x);
-		*xoffset = (1920 - *xoffset)/2;
-		*yoffset = abs((points)[r - 1][0].y - (points)[r - 1][c - 1].y);
-		*yoffset = (1080 - *yoffset)/2;
 		fdf->par = 0;
 	}
 	else
@@ -81,14 +89,11 @@ void	ft_set_offset(t_fdf *fdf, int *xoffset, int *yoffset)
 	}
 }
 
-void	ft_iso(t_point ***points, int r, int c)
-{
-	int	i;
-	int	j;
+void	ft_iso(t_fdf *fdf, t_point ***points, int r, int c)
+{ int	i; int	j;
 	int	p[3];
-	int	k;
+	//float	k;
 
-	k = ft_get_scale(r, c);
 	i = 0;
 	j = 0;
 	while (i < r)
@@ -97,11 +102,15 @@ void	ft_iso(t_point ***points, int r, int c)
 		{
 			p[0] = (*points)[i][j].x;
 			p[1] = (*points)[i][j].y;
-			p[2] = (*points)[i][j].z * k / 4;
+			p[2] = (*points)[i][j].z;
 			(*points)[i][j].x = (p[0] - p[1]) * cos(0.523599);
 			(*points)[i][j].y = -(p[2]) + sin(0.523599) * (p[0] + p[1]);
 			j++;
 		}
+		printf("----------------------\n");
+		printf("(%d, %d)\n", fdf->points[i][0].x, fdf->points[i][0].y);
+		printf("(%d, %d)\n", fdf->points[i][1].x, fdf->points[i][1].y);
+		printf("----------------------\n");
 		j = 0;
 		i++;
 	}
@@ -117,7 +126,7 @@ void ft_center (t_fdf *fdf)
 	if (fdf->scale)
 		ft_scale(fdf, fdf->h, fdf->w);
 	if (fdf->iso)
-		ft_iso(&(fdf->points), fdf->h, fdf->w);
+		ft_iso(fdf, &(fdf->points), fdf->h, fdf->w);
 	ft_set_offset(fdf, &xoffset, &yoffset);
 	i = 0;
 	j = 0;
@@ -158,12 +167,15 @@ void	ft_print_matrix(t_fdf *fdf)
 		j = 0;
 		i++;
 	}
+	printf("(%d, %d) - ", fdf->points[0][0].x, fdf->points[0][0].y);
+	printf("(%d, %d) - ", fdf->points[0][1].x, fdf->points[0][1].y);
+	printf("(%d, %d) - ", fdf->points[0][2].x, fdf->points[0][2].y);
+	printf("(%d, %d)\n", fdf->points[0][3].x, fdf->points[0][3].y);
 	mlx_put_image_to_window(fdf->mlx, fdf->win, img.img, 0, 0);
 }
 
 int	main(int argc, char **argv)
 {
-	//t_data	img;
 	t_fdf	fdf;
 	int		fd;
 
@@ -177,8 +189,10 @@ int	main(int argc, char **argv)
 	fdf.y_move = 0;
 	fdf.iso = 1;
 	fdf.par = 0;
+	fdf.zoom = 0;
 	fdf.proyec = 1;
 	fdf.scale = 1;
+	fdf.z = 0;
 	ft_fill_list(fd, &(fdf.points), &fdf);
 	fdf.mlx = mlx_init();
 	fdf.win = mlx_new_window(fdf.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "fdf");
