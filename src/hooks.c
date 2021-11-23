@@ -6,15 +6,16 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 18:44:12 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/23 19:34:40 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/23 21:26:26 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <mlx.h>
+#include <math.h>
 #include <stdio.h>
 
-/*void	ft_rotate_x(t_fdf *f)
+void	ft_rotate_x(t_fdf *f)
 {
 	int	i;
 	int	j;
@@ -23,19 +24,20 @@
 
 	i = 0;
 	j = 0;
-	while (i < fdf->h)
+	while (i < f->h)
 	{
-		while (j < fdf->w)
+		while (j < f->w)
 		{
 			p_x = f->points[i][j].x;
-			p_y = f->points[i][j];
-			
+			p_y = f->points[i][j].y;
+			f->points[i][j].y = p_y * cos(.05) + f->points[i][j].z * sin(0.05);
+			f->points[i][j].z = -p_y * sin(.05) + f->points[i][j].z * cos(0.05);
 			j++;
 		}
 		j = 0;
 		i++;
 	}
-}*/
+}
 
 void	ft_reset_points(t_fdf *fdf)
 {
@@ -124,6 +126,13 @@ int	ft_hooks(int keycode, t_fdf *vars)
 		z = vars->z;
 		ft_reset_points(vars);
 		vars->z = z;
+		ft_print_matrix(vars);
+	}
+	else if (keycode == 7)
+	{
+		vars->x_move = 0;
+		vars->y_move = 0;
+		ft_rotate_x(vars);
 		ft_print_matrix(vars);
 	}
 	return (0);
