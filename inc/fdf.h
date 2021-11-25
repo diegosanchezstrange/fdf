@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 17:53:51 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/23 19:13:16 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/25 21:33:30 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,24 @@ typedef struct	s_fdf {
 void	ft_free_all(char **split, t_list **list, char *line);
 void	ft_free_split(char **s);
 
+//scale.c
+float	ft_get_scale(t_fdf *fdf, int r, int c);
+void	ft_scale(t_fdf *fdf, int r, int c);
+
+//line.c
 void	ft_plot_line(t_data data, t_point p1, t_point p2);
 void	ft_print_matrix(t_fdf *fdf);
+
+//transform.c
+void	ft_set_offset(t_fdf *fdf, int *xoffset, int *yoffset);
+void	ft_iso(t_fdf *fdf, t_point ***points, int r, int c);
+void 	ft_center (t_fdf *fdf);
+
+//hooks.c
 int		ft_hooks(int keycode, t_fdf *vars);
 
 // parse.c
 void	ft_fill_list(int fd, t_point ***list, t_fdf *fdf);
 int		ft_atoi_hex(char *nbr);
-
 
 #endif
