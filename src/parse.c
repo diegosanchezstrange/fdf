@@ -8,9 +8,8 @@
 /*   Created: 2021/11/13 17:56:11 by dsanchez          #+#    #+#             */
 /*   Updated: 2021/11/22 19:20:55 by dsanchez         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */
-
-#include <fdf.h>
+/* ************************************************************************** */ 
+#include <fdf.h> 
 #include <stdio.h>
 
 int	ft_atoi_check(char *n)
@@ -103,6 +102,24 @@ t_point	*ft_new_line(char **nbrs, int y)
 	return (res);
 }
 
+t_point	**ft_resize_list(t_point ***list, int y)
+{
+	t_point	**new;
+	int		i;
+
+	i = 0;
+	new = (t_point **)malloc((2 + y) * sizeof(t_point *));
+	if (!new)
+		return (NULL);
+	while (i != y)
+	{
+		new[i] = (*list)[i];
+		i++;
+	}
+	free(*list);
+	return (new);
+}
+
 void	ft_fill_list(int fd, t_point ***list, t_fdf *fdf)
 {
 	char	*line;
@@ -113,13 +130,16 @@ void	ft_fill_list(int fd, t_point ***list, t_fdf *fdf)
 	line = get_next_line(fd);
 	nbrs = ft_split(line, ' ');
 	fdf->w = ft_matrix_size(nbrs);
-	*list = (t_point **)malloc((fdf->w + 1 ) * sizeof(t_point *));
+	*list = (t_point **)malloc(2 * sizeof(t_point *));
 	if (!list || !fdf->w)
 		return ;
 	while (line)
 	{
 		(*list)[y] = ft_new_line(nbrs, y);
 		y++;
+		*list = ft_resize_list(list, y);
+		if (!list)
+			return ;
 		ft_free_split(nbrs);
 		free(line);
 		line = get_next_line(fd);

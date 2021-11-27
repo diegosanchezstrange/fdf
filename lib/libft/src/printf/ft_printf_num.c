@@ -40,13 +40,7 @@ int	ft_putnbr_u(unsigned int nbr)
 	int				c;
 
 	c = 0;
-	if (nbr < 0)
-	{
-		c += write(1, "-", 1);
-		nbr = (unsigned int) nbr * -1;
-	}
-	else
-		nbr = (unsigned int) nbr;
+	nbr = (unsigned int) nbr;
 	if (nbr >= 10 )
 	{
 		c += ft_putnbr (nbr / 10);

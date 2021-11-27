@@ -10,34 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <fdf.h>
-#include <mlx.h>
+#include <fdf.h> 
+#include <mlx.h> 
 #include <math.h>
 #include <stdio.h>
-
-void	ft_rotate_x(t_fdf *f)
-{
-	int	i;
-	int	j;
-	int	p_y;
-	int	p_x;
-
-	i = 0;
-	j = 0;
-	while (i < f->h)
-	{
-		while (j < f->w)
-		{
-			p_x = f->points[i][j].x;
-			p_y = f->points[i][j].y;
-			f->points[i][j].y = p_y * cos(.05) + f->points[i][j].z * sin(0.05);
-			f->points[i][j].z = -p_y * sin(.05) + f->points[i][j].z * cos(0.05);
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-}
 
 void	ft_reset_points(t_fdf *fdf)
 {
@@ -68,72 +44,74 @@ void	ft_reset_points(t_fdf *fdf)
 		i++;
 	}
 }
+
 void	ft_move_off(int keycode, t_fdf *vars)
 {
 
 	vars->x_move = 0;
 	vars->y_move = 0;
-	if (keycode == 126)
+	if (keycode == KEY_UP)
 		vars->y_move = -Y_OFFSET;
-	else if (keycode == 125)
+	else if (keycode == KEY_DOWN)
 		vars->y_move = Y_OFFSET;
-	else if (keycode == 124)
+	else if (keycode == KEY_RIGHT)
 		vars->x_move = X_OFFSET;
-	else if (keycode == 123)
+	else if (keycode == KEY_LEFT)
 		vars->x_move = -X_OFFSET;
 	ft_print_matrix(vars);
 }
 
-int	ft_hooks(int keycode, t_fdf *vars)
+void	ft_change_proyection(t_fdf *fdf)
+{
+	if (fdf->proyec == 1)
+	{
+		fdf->proyec = 2;
+		fdf->par = 1;
+	}
+	else if (fdf->proyec == 2)
+	{
+		fdf->proyec = 1;
+		fdf->iso = 1;
+	}
+	ft_reset_points(fdf);
+	ft_print_matrix(fdf);
+}
+
+void	ft_zoom(t_fdf *fdf)
 {
 	float	z;
 
 	z = 0;
-	if (keycode == 53)
+	fdf->scale = 1;
+	fdf->zoom = 1;
+	fdf->x_move = -50;
+	fdf->y_move = -50;
+	z = fdf->z;
+	ft_reset_points(fdf);
+	fdf->z = z;
+	ft_print_matrix(fdf);
+}
+
+int	ft_hooks(int keycode, t_fdf *vars)
+{
+
+	if (keycode == KEY_ESC)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit(0);
 		return (1);
 	}
-	else if (keycode >= 123 && keycode <= 126)
+	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT ||
+			keycode == KEY_UP || keycode == KEY_DOWN)
 		ft_move_off(keycode, vars);
-	else if (keycode == 15)
+	else if (keycode == KEY_C)
 	{
 		ft_reset_points(vars);
 		ft_print_matrix(vars);
 	}
-	else if (keycode == 35)
-	{
-		if (vars->proyec == 1)
-		{
-			vars->proyec = 2;
-			vars->par = 1;
-		}
-		else if (vars->proyec == 2)
-		{
-			vars->proyec = 1;
-			vars->iso = 1;
-		}
-		ft_reset_points(vars);
-		ft_print_matrix(vars);
-	}
-	else if (keycode == 69)
-	{
-		vars->scale = 1;
-		vars->zoom = 1;
-		vars->x_move = -50;
-		vars->y_move = -50;
-		z = vars->z;
-		ft_reset_points(vars);
-		vars->z = z;
-		ft_print_matrix(vars);
-	}
-	else if (keycode == 7)
-	{
-		vars->x_move = 0;
-		vars->y_move = 0;
-		ft_rotate_x(vars);
-		ft_print_matrix(vars);
-	}
+	else if (keycode == KEY_P)
+		ft_change_proyection(vars);
+	else if (keycode == KEY_PLUS)
+		ft_zoom(vars);
 	return (0);
 }
