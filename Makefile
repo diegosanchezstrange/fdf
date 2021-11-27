@@ -14,10 +14,10 @@ OBJS_DIR = obj
 LIBFT_NAME	= libft.a
 
 MLX_NAME_MAC = libmlx.a
+
 MLX_NAME_LINUX = libmlx_Linux.a
 
 LIBFT	= lib/libft/
-MLX	= lib/minilibx_macos/
 
 SRCS_PATHS 	= $(addprefix $(SRCS_DIR)/, $(SRCS))
 
@@ -25,21 +25,40 @@ OBJS_PATHS 	= $(addprefix $(OBJS_DIR)/, $(OBJS))
 
 RM		= rm -rf
 
-MLX_LNK	= -L ${MLX} -l mlx -framework OpenGL -framework AppKit
+OS		:= $(shell uname -s)
 
-LIB_LNK	= -L ${LIBFT} -lft
+ifeq (${OS},Linux)
+	MLX = lib/minilibx-linux/
+	MLX_NAME = ${MLX_NAME_LINUX}
+	LIBS = -lft -lmlx_Linux -lXext -lX11 -lm -lz
+endif
+ifeq (${OS},Darwin)
+	MLX	= lib/minilibx_macos/
+	MLX_NAME = ${MLX_NAME_MAC}
+	LIBS = -lft -lmlx -framework OpenGL -framework AppKit
+endif
 
-INCLUDES = -I${LIBFT}inc -I${MLX} -I ./inc
+MLX_LNK	= -L ${MLX}
+
+LIB_LNK	= -L ${LIBFT}
+
+INCLUDES = -I ./${LIBFT}inc -I ./${MLX} -I ./inc
 
 all: ${NAME}
 
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
-	@${CC} ${CFLAGS} -c $< -o $@ ${INCLUDES}
+	@${CC} ${CFLAGS} ${INCLUDES} -c $< -o $@ 
 
-$(NAME): ${OBJS_DIR} ${OBJS_PATHS} 
+$(NAME): ${LIBFT_NAME} ${MLX_NAME} ${OBJS_DIR} ${OBJS_PATHS} 
+	${CC} ${CFLAGS} ${LIB_LNK} ${MLX_LNK} ${OBJS_PATHS} -o ${NAME} ${LIBS}
+
+${LIBFT_NAME} :
 	make -C ${LIBFT}
+	cp ${LIBFT}/${LIBFT_NAME} .
+
+${MLX_NAME} :
 	make -C ${MLX}
-	${CC} ${CFLAGS} ${LIB_LNK} ${MLX_LNK} ${OBJS_PATHS} -o ${NAME}
+	cp ${MLX}/${MLX_NAME} .
 
 $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR) 2> /dev/null
