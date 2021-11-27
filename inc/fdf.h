@@ -84,7 +84,7 @@ typedef struct	s_fdf {
 # endif
 
 // free.c
-void	ft_free_all(char **split, t_list **list, char *line);
+void	ft_free_all(t_fdf *fdf);
 void	ft_free_split(char **s);
 
 //scale.c

@@ -97,7 +97,7 @@ int	ft_hooks(int keycode, t_fdf *vars)
 
 	if (keycode == KEY_ESC)
 	{
-		mlx_destroy_window(vars->mlx, vars->win);
+		ft_free_all(vars);
 		exit(0);
 		return (1);
 	}

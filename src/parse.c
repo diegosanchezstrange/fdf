@@ -81,10 +81,8 @@ t_point	*ft_new_line(char **nbrs, int y)
 	t_point	*res;
 
 	i = 0;
-	size = 0;
-	while (nbrs[size])
-		size++;
-	res = (t_point *)malloc(sizeof(t_point) * (size));
+	size = ft_matrix_size(nbrs);
+	res = (t_point *)ft_calloc(size, sizeof(t_point));
 	while (nbrs[i])
 	{
 		colorsplit = ft_split(nbrs[i], ',');
@@ -97,6 +95,7 @@ t_point	*ft_new_line(char **nbrs, int y)
 			res[i].color = 0x9381FF;
 		else 
 			res[i].color = 0xFFC857;
+		ft_free_split(colorsplit);
 		i++;
 	}
 	return (res);

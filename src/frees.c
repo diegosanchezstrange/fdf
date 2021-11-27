@@ -11,12 +11,21 @@
 /* ************************************************************************** */
 
 #include <fdf.h>
+#include <mlx.h>
 
-void	ft_free_all(char **split, t_list **list, char *line)
+void	ft_free_all(t_fdf *fdf)
 {
-	ft_free_split(split);
-	free(line);
-	ft_lstclear(list, free);
+	t_point	**points;
+
+	points = fdf->points;
+	mlx_destroy_window(fdf->mlx, fdf->win);
+	mlx_destroy_image(fdf->mlx, fdf->img.img);
+	while (*points)
+	{
+		free(*points);
+		points++;
+	}
+	free(fdf->points);
 }
 
 void	ft_free_split(char **s)
