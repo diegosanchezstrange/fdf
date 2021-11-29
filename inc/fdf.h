@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */ 
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 17:53:51 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/29 19:30:42 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/29 20:23:01 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,8 @@ typedef struct	s_fdf {
 #  define KEY_LEFT 123
 #  define KEY_RIGHT 124
 #  define KEY_P 35
-#  define KEY_MINUS 27
-#  define KEY_PLUS 24
-#  define KEY_C 69
+#  define KEY_PLUS 69
+#  define KEY_C 8
 # elif LINUX
 #  define KEY_ESC 65307
 #  define KEY_UP 65362

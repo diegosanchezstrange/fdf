@@ -6,7 +6,6 @@ CFLAGS	= -Wall -Werror -Wextra -O3 -D BUFFER_SIZE=32 -g3 -fsanitize=address
 
 SRCS	= fdf.c hooks.c line.c parse.c frees.c parse_utils.c scale.c \
 		  transform.c color.c
-
 OBJS	= ${SRCS:.c=.o}
 
 SRCS_DIR = src
@@ -67,7 +66,7 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR) 2> /dev/null
 
 clean:
-		@${RM} ${OBJS_DIR}/*.o *.dSYM
+		@${RM} *.a ${OBJS_DIR}/*.o *.dSYM
 
 fclean:		clean
 		@${RM} ${NAME}

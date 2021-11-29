@@ -6,9 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 18:44:12 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/29 19:19:17 by dsanchez         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
+/*   Updated: 2021/11/29 20:44:17 by dsanchez         ###   ########.fr       */
 
 #include <fdf.h> 
 #include <mlx.h> 
@@ -81,8 +79,6 @@ void	ft_zoom(t_fdf *fdf)
 	z = 0;
 	fdf->scale = 1;
 	fdf->zoom = 1;
-	fdf->x_move = -50;
-	fdf->y_move = -50;
 	z = fdf->z;
 	ft_reset_points(fdf);
 	fdf->z = z;

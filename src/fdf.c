@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:51:32 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/29 19:26:36 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/29 21:15:29 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ int	main(int argc, char **argv)
 		return (1);
 	ft_init_program(&fdf);
 	ft_fill_list(fd, &(fdf.points), &fdf);
+	if (fdf.points == NULL)
+		return (1);
 	fdf.mlx = mlx_init();
 	fdf.win = mlx_new_window(fdf.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "fdf");
 	fdf.img.img = mlx_new_image(fdf.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
