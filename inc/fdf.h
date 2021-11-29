@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
+/*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */ 
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 17:53:51 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/25 21:33:30 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/29 19:30:42 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,11 @@ void	ft_free_split(char **s);
 float	ft_get_scale(t_fdf *fdf, int r, int c);
 void	ft_scale(t_fdf *fdf, int r, int c);
 
+//color.c
+int		get_color(t_point current, t_point start, t_point end);
+
 //line.c
-void	ft_plot_line(t_data data, t_point p1, t_point p2);
+void	ft_plot_line(t_data data, t_point p0, t_point p1, t_point p2);
 void	ft_print_matrix(t_fdf *fdf);
 
 //transform.c
@@ -102,6 +105,11 @@ void 	ft_center (t_fdf *fdf);
 
 //hooks.c
 int		ft_hooks(int keycode, t_fdf *vars);
+
+// parse_utils.c
+int		ft_atoi_check(char *n);
+int		ft_aredigits(char *n);
+int		ft_matrix_size(char **nbrs);
 
 // parse.c
 void	ft_fill_list(int fd, t_point ***list, t_fdf *fdf);

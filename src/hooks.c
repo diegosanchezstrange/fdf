@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 18:44:12 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/23 21:26:26 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/29 19:19:17 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@
 
 void	ft_reset_points(t_fdf *fdf)
 {
-	t_point	**points;
 	int		i;
 	int		j;
 
-	points = fdf->points;
 	fdf->x_move = 0;
 	fdf->y_move = 0;
 	fdf->scale = 1;
@@ -36,8 +34,8 @@ void	ft_reset_points(t_fdf *fdf)
 	{
 		while (j < fdf->w)
 		{
-			points[i][j].x = j;
-			points[i][j].y = i;
+			fdf->points[i][j].x = j;
+			fdf->points[i][j].y = i;
 			j++;
 		}
 		j = 0;
@@ -47,7 +45,6 @@ void	ft_reset_points(t_fdf *fdf)
 
 void	ft_move_off(int keycode, t_fdf *vars)
 {
-
 	vars->x_move = 0;
 	vars->y_move = 0;
 	if (keycode == KEY_UP)
@@ -94,15 +91,14 @@ void	ft_zoom(t_fdf *fdf)
 
 int	ft_hooks(int keycode, t_fdf *vars)
 {
-
 	if (keycode == KEY_ESC)
 	{
 		ft_free_all(vars);
 		exit(0);
 		return (1);
 	}
-	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT ||
-			keycode == KEY_UP || keycode == KEY_DOWN)
+	else if (keycode == KEY_LEFT || keycode == KEY_RIGHT
+		|| keycode == KEY_UP || keycode == KEY_DOWN)
 		ft_move_off(keycode, vars);
 	else if (keycode == KEY_C)
 	{

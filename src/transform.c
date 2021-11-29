@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 21:31:05 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/25 21:31:44 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/29 19:31:54 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ void	ft_set_offset(t_fdf *fdf, int *xoffset, int *yoffset)
 	if (fdf->iso || fdf->par)
 	{
 		*xoffset = abs((points)[0][0].x - (points)[r - 1][c - 1].x);
-		*xoffset = (1920 - *xoffset)/2;
+		*xoffset = (1920 - *xoffset) / 2;
 		*yoffset = abs((points)[0][c - 1].y - (points)[r - 1][c - 1].y);
-		*yoffset = (1080 - *yoffset)/2;
+		*yoffset = (1080 - *yoffset) / 2;
 		fdf->iso = 0;
 		fdf->par = 0;
 	}
@@ -40,8 +40,8 @@ void	ft_set_offset(t_fdf *fdf, int *xoffset, int *yoffset)
 }
 
 void	ft_iso(t_fdf *fdf, t_point ***points, int r, int c)
-{ 
-	int	i; 
+{
+	int	i;
 	int	j;
 	int	p[3];
 
@@ -63,7 +63,7 @@ void	ft_iso(t_fdf *fdf, t_point ***points, int r, int c)
 	}
 }
 
-void ft_center (t_fdf *fdf)
+void	ft_center(t_fdf *fdf)
 {
 	int	xoffset;
 	int	yoffset;

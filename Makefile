@@ -4,7 +4,8 @@ CC		= gcc
 
 CFLAGS	= -Wall -Werror -Wextra -O3 -D BUFFER_SIZE=32 -g3 -fsanitize=address
 
-SRCS	= fdf.c hooks.c line.c parse.c frees.c parse_utils.c scale.c transform.c
+SRCS	= fdf.c hooks.c line.c parse.c frees.c parse_utils.c scale.c \
+		  transform.c color.c
 
 OBJS	= ${SRCS:.c=.o}
 
@@ -28,11 +29,13 @@ RM		= rm -rf
 OS		:= $(shell uname -s)
 
 ifeq (${OS},Linux)
+	CFLAGS += -D LINUX
 	MLX = lib/minilibx-linux/
 	MLX_NAME = ${MLX_NAME_LINUX}
 	LIBS = -lft -lmlx_Linux -lXext -lX11 -lm -lz
 endif
 ifeq (${OS},Darwin)
+	CFLAGS += -D OSX
 	MLX	= lib/minilibx_macos/
 	MLX_NAME = ${MLX_NAME_MAC}
 	LIBS = -lft -lmlx -framework OpenGL -framework AppKit
@@ -47,7 +50,7 @@ INCLUDES = -I ./${LIBFT}inc -I ./${MLX} -I ./inc
 all: ${NAME}
 
 ${OBJS_DIR}/%.o: ${SRCS_DIR}/%.c
-	@${CC} ${CFLAGS} ${INCLUDES} -c $< -o $@ 
+	${CC} ${CFLAGS} ${INCLUDES} -c $< -o $@ 
 
 $(NAME): ${LIBFT_NAME} ${MLX_NAME} ${OBJS_DIR} ${OBJS_PATHS} 
 	${CC} ${CFLAGS} ${LIB_LNK} ${MLX_LNK} ${OBJS_PATHS} -o ${NAME} ${LIBS}
@@ -64,13 +67,11 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR) 2> /dev/null
 
 clean:
-		@${RM} ${OBJS} *.dSYM
+		@${RM} ${OBJS_DIR}/*.o *.dSYM
 
 fclean:		clean
 		@${RM} ${NAME}
 
-bonus: all
-
 re:		fclean all
 
-.PHONY:	clean re fclean bonus all
+.PHONY:	clean re fclean all

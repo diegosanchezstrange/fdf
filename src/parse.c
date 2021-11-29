@@ -6,72 +6,12 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 17:56:11 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/22 19:20:55 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/11/29 19:29:35 by dsanchez         ###   ########.fr       */
 /*                                                                            */
-/* ************************************************************************** */ 
+/* ************************************************************************** */
+
 #include <fdf.h> 
 #include <stdio.h>
-
-int	ft_atoi_check(char *n)
-{
-	int				sign;
-	char			*nptr;
-	unsigned int	res;
-	int				i;
-
-	sign = 1;
-	res = 0;
-	i = 0;
-	nptr = ft_strtrim(n, "\n");
-	if (nptr[i] == '-' || nptr[i] == '+')
-	{
-		if (nptr[i] == '-')
-			sign = -1;
-		i++;
-	}
-	while (ft_isdigit(nptr[i]))
-	{
-		res = (res * 10) + (nptr[i] - 48);
-		if ((res > 2147483647 && sign == 1)
-			|| (res > 2147483648 && sign == -1))
-			return (0);
-		i++;
-	}
-	free(nptr);
-	return (1);
-}
-
-int	ft_aredigits(char *n)
-{
-	int		i;
-	char	*nbr;
-
-	i = 0;
-	nbr = ft_strtrim(n, "\n");
-	if (nbr[i] == '-' || nbr[i] == '+')
-		i++;
-	while (nbr[i])
-	{
-		if (!ft_isdigit(nbr[i]))
-			return (0);
-		i++;
-	}
-	if (nbr[i] == '-' || nbr[i] == '+')
-		return (0);
-	free(nbr);
-	return (1);
-}
-
-
-int	ft_matrix_size(char **nbrs)
-{
-	int	size;
-
-	size = 0;
-	while (nbrs[size])
-		size++;
-	return (size);
-}
 
 t_point	*ft_new_line(char **nbrs, int y)
 {	
@@ -93,7 +33,7 @@ t_point	*ft_new_line(char **nbrs, int y)
 			res[i].color = ft_atoi_hex(ft_strtrim(colorsplit[1], "\n"));
 		else if (res[i].z <= 0)
 			res[i].color = 0x9381FF;
-		else 
+		else
 			res[i].color = 0xFFC857;
 		ft_free_split(colorsplit);
 		i++;
