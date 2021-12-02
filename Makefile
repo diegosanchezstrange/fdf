@@ -2,10 +2,11 @@ NAME	= fdf
 
 CC		= gcc
 
-CFLAGS	= -Wall -Werror -Wextra -O3 -D BUFFER_SIZE=32 -g3 -fsanitize=address
+CFLAGS	= -Wall -Werror -Wextra -O3 -D BUFFER_SIZE=32 #-g3 -fsanitize=address
 
 SRCS	= fdf.c hooks.c line.c parse.c frees.c parse_utils.c scale.c \
-		  transform.c color.c
+		  transform.c color.c win.c
+
 OBJS	= ${SRCS:.c=.o}
 
 SRCS_DIR = src

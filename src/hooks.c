@@ -5,13 +5,14 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/12 18:44:12 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/29 20:44:17 by dsanchez         ###   ########.fr       */
+/*   Created: 2021/12/02 20:43:40 by dsanchez          #+#    #+#             */
+/*   Updated: 2021/12/02 21:10:10 by dsanchez         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <fdf.h> 
 #include <mlx.h> 
 #include <math.h>
-#include <stdio.h>
 
 void	ft_reset_points(t_fdf *fdf)
 {

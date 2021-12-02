@@ -6,13 +6,12 @@
 /*   By: dsanchez <dsanchez@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 19:24:33 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/29 19:27:36 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/12/02 21:10:16 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <mlx.h>
-#include <stdio.h>
 
 void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 {

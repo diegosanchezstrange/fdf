@@ -6,7 +6,7 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/12 16:51:32 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/29 21:15:29 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/12/02 21:09:56 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,29 @@ void	ft_print_matrix(t_fdf *fdf)
 {
 	int		i;
 	int		j;
-	t_data	img;
 
 	i = 0;
 	j = 0;
-	img = fdf->img;
-	ft_bzero(img.addr, SCREEN_WIDTH * SCREEN_HEIGHT * (img.bits_per_pixel / 8));
+	ft_bzero(fdf->img.addr,
+		SCREEN_WIDTH * SCREEN_HEIGHT * (fdf->img.bits_per_pixel / 8));
 	ft_center(fdf);
 	while (i < fdf->h)
 	{
 		while (j < fdf->w)
 		{
 			if (j < fdf->w - 1)
-				ft_plot_line(img, fdf->points[i][j],
+				ft_plot_line(fdf->img, fdf->points[i][j],
 					fdf->points[i][j], fdf->points[i][j + 1]);
 			if (i < fdf->h - 1)
-				ft_plot_line(img, fdf->points[i][j],
+				ft_plot_line(fdf->img, fdf->points[i][j],
 					fdf->points[i][j], fdf->points[i + 1][j]);
 			j++;
 		}
 		j = 0;
 		i++;
 	}
-	mlx_put_image_to_window(fdf->mlx, fdf->win, img.img, 0, 0);
+	mlx_put_image_to_window(fdf->mlx, fdf->win, fdf->img.img, 0, 0);
+	ft_legend(fdf);
 }
 
 void	ft_init_program(t_fdf *fdf)
@@ -68,9 +68,6 @@ int	main(int argc, char **argv)
 	if (fd == -1)
 		return (1);
 	ft_init_program(&fdf);
-	ft_fill_list(fd, &(fdf.points), &fdf);
-	if (fdf.points == NULL)
-		return (1);
 	fdf.mlx = mlx_init();
 	fdf.win = mlx_new_window(fdf.mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "fdf");
 	fdf.img.img = mlx_new_image(fdf.mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -78,6 +75,9 @@ int	main(int argc, char **argv)
 			&(fdf.img.bits_per_pixel),
 			&(fdf.img.line_length),
 			&(fdf.img.endian));
+	ft_fill_list(fd, &(fdf.points), &fdf);
+	if (fdf.points == NULL)
+		return (1);
 	mlx_hook(fdf.win, 2, 1L << 0, ft_hooks, &fdf);
 	ft_print_matrix(&fdf);
 	mlx_loop(fdf.mlx);

@@ -6,12 +6,13 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 18:18:52 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/13 19:08:12 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/12/02 21:10:05 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <mlx.h>
+#include <stdio.h>
 
 void	ft_free_all(t_fdf *fdf)
 {

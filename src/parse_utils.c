@@ -6,13 +6,12 @@
 /*   By: dsanchez <dsanchez@student.42madrid>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 17:54:27 by dsanchez          #+#    #+#             */
-/*   Updated: 2021/11/29 21:35:51 by dsanchez         ###   ########.fr       */
+/*   Updated: 2021/12/02 21:10:26 by dsanchez         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fdf.h>
 #include <math.h>
-#include <stdio.h>
 
 int	ft_check_base(char *nbr)
 {
@@ -32,7 +31,7 @@ int	ft_check_base(char *nbr)
 	return (1);
 }
 
-int	ft_atoi_hex(char *nbr)
+int	ft_hex(char *nbr)
 {
 	int	i;
 	int	sol;
@@ -98,7 +97,10 @@ int	ft_aredigits(char *n)
 	while (nbr[i])
 	{
 		if (!ft_isdigit(nbr[i]))
+		{
+			free(nbr);
 			return (0);
+		}
 		i++;
 	}
 	if (nbr[i] == '-' || nbr[i] == '+')
